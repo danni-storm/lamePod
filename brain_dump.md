@@ -12,11 +12,11 @@ flowchart LR
     end
     D -- R Channel Only --> C
     A("ESP32")
-    B("Respeaker Lite")
+    B("Respeaker XVF3800")
     C("Dayton Audio 4 Inch Full Range")
     D("Louder DAC/Amp")
     E("8x8 LED Matrix for Status")
-    F("Ethernet")
+    F("W5500 Ethernet")
     G("24V 2A Power Supply")
     I("24V to 5V Buck Converter")
     G --> I

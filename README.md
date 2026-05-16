@@ -9,15 +9,17 @@ The Lame Pod project was conceived to imitate the functionality and aesthetics o
 ### Initial Proof of Concept Hardware
 Currently the project is designed to operate around Sonocotta's ESP32 hardware projects. The initial proof of concept will incorperate the following hardware and a 3D printed chasis. 
 
-|  Component | Hardware Used |    Product Providing Component   |
-| ---------- | ------------- | -------------------------------- |
-|   Logic    |   ESP32-S3    |      Sonocotta Louder ESP32      |
-|    DAC     |   TAS5805M    |      Sonocotta Louder ESP32      |
-| Amplifier  |   TAS5805M    |      Sonocotta Louder ESP32      |
-|  Speaker   | 4" Full Range |       Dayton Audio RS100-4       |
-| Microphone |    XVF3800    |  Seeed Studio Respeaker XVF3800  |
-|    LED     |  WS2812B 8x8  | BTF-LIGHTING WS2812B RGB 5050SMD |
-|   Power    |  20V 2A PSU*  |  Amazon EL Listed Wall Brick**   |
+|  Component | Hardware Used  |    Product Providing Component    |
+| ---------- | -------------- | --------------------------------- |
+|   Logic    |    ESP32-S3    |      Sonocotta Louder ESP32       |
+|    DAC     |    TAS5805M    |      Sonocotta Louder ESP32       |
+| Amplifier  |    TAS5805M    |      Sonocotta Louder ESP32       |
+|  Ethernet  |      W5500     | Sonocotta Provided Ethernet Addon |
+|  Speaker   |  4" Full Range |       Dayton Audio RS100-4        |
+| Microphone |     XVF3800    |  Seeed Studio Respeaker XVF3800   |
+|    LED     |   WS2812B 8x8  | BTF-LIGHTING WS2812B RGB 5050SMD  |
+|   Power    |   20V 2A PSU*  |  Amazon EL Listed Wall Brick**    |
+|  5V Down   | Buck Converter |      [DROK Buck Converter](https://www.amazon.com/dp/B01NALDSJ0?ref=ppx_yo2ov_dt_b_fed_asin_title&th=1) |
 
 \* *20V, 2A will provide a little less than 40W for the entire speaker*
 
@@ -46,3 +48,5 @@ Much of the credit goes to the following repositories and projects:
 [sonocotta ESP32 Audio Dock](https://github.com/sonocotta/esp32-audio-dock)
 
 Seeed Studio
+
+[ESPHome](https://esphome.io/)
