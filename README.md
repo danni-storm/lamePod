@@ -48,6 +48,4 @@ Much of the credit goes to the following repositories and projects:
 
 [sonocotta ESP32 Audio Dock](https://github.com/sonocotta/esp32-audio-dock)
 
-Seeed Studio
-
 [ESPHome](https://esphome.io/)
