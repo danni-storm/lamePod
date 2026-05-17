@@ -1,3 +1,145 @@
 # Author: Danielle Stone
+# Based on work from Sonocotta and formatBCE
 # esphome main file
+
+substitutions:
+  name: lame-pod
+  friendly_name: LamePod
+  task_stack_in_psram: "true" 
+  use_ethernet: "true"
+
+  # ===== Board-Specific Pinouts =====
+  # I2S audio in pins
+  i2s_lrclk_pin_mic: GPIO40
+  i2s_bclk_pin_mic: GPIO41
+  i2s_din_pin_mic: GPIO39
+
+  # I2S audio out pins
+  i2s_lrclk_pin: GPIO15
+  i2s_bclk_pin: GPIO14
+  i2s_dout_pin: GPIO16
+
+  # TAS5805M
+  tas58xx_variant: TAS5805M
+  tas58xx_enable_pin: GPIO17
+  i2c_sda_pin: GPIO8
+  i2c_scl_pin: GPIO9
+  
+  # RGB LED
+  rgb_led_pin: GPIO21
+
+  # Ethernet pins
+  eth_cs_pin: GPIO10
+  eth_interrupt_pin: GPIO6
+  eth_reset_pin: GPIO5
+
 esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  min_version: 2026.5.0
+  name_add_mac_suffix: false
+  platformio_options:
+    board_build.flash_mode: dio
+
+esp32:
+  variant: ESP32S3
+  flash_size: 8MB
+  cpu_frequency: 240MHz
+  framework:
+    type: esp-idf
+    version: recommended
+    sdkconfig_options:
+      CONFIG_ESP32S3_DATA_CACHE_64KB: "y"
+      CONFIG_ESP32S3_DATA_CACHE_LINE_64B: "y"
+      CONFIG_ESP32S3_INSTRUCTION_CACHE_32KB: "y"
+      # Moves instructions and read only data from flash into PSRAM on boot.
+      # Both enabled allows instructions to execute while a flash operation is in progress without needing to be placed in IRAM.
+      # Considerably speeds up mWW at the cost of using more PSRAM.
+      CONFIG_SPIRAM_RODATA: "y"
+      CONFIG_SPIRAM_FETCH_INSTRUCTIONS: "y"
+      CONFIG_BT_ALLOCATION_FROM_SPIRAM_FIRST: "y"
+      CONFIG_BT_BLE_DYNAMIC_ENV_MEMORY: "y"
+      CONFIG_MBEDTLS_EXTERNAL_MEM_ALLOC: "y"
+      CONFIG_MBEDTLS_SSL_PROTO_TLS1_3: "y" 
+
+  # Substitutions for audio files
+  mute_switch_on_sound_file: https://github.com/esphome/home-assistant-voice-pe/raw/dev/sounds/mute_switch_on.flac
+  mute_switch_off_sound_file: https://github.com/esphome/home-assistant-voice-pe/raw/dev/sounds/mute_switch_off.flac
+  timer_finished_sound_file: https://github.com/esphome/home-assistant-voice-pe/raw/dev/sounds/timer_finished.flac
+  wake_word_triggered_sound_file: https://github.com/esphome/home-assistant-voice-pe/raw/dev/sounds/wake_word_triggered.flac
+  center_button_press_sound_file: https://github.com/esphome/home-assistant-voice-pe/raw/dev/sounds/center_button_press.flac
+  center_button_double_press_sound_file: https://github.com/esphome/home-assistant-voice-pe/raw/dev/sounds/center_button_double_press.flac
+  center_button_triple_press_sound_file: https://github.com/esphome/home-assistant-voice-pe/raw/dev/sounds/center_button_triple_press.flac
+  center_button_long_press_sound_file: https://github.com/esphome/home-assistant-voice-pe/raw/dev/sounds/center_button_long_press.flac
+  factory_reset_initiated_sound_file: https://github.com/esphome/home-assistant-voice-pe/raw/dev/sounds/factory_reset_initiated.mp3
+  factory_reset_cancelled_sound_file: https://github.com/esphome/home-assistant-voice-pe/raw/dev/sounds/factory_reset_cancelled.mp3
+  factory_reset_confirmed_sound_file: https://github.com/esphome/home-assistant-voice-pe/raw/dev/sounds/factory_reset_confirmed.mp3
+  error_cloud_expired_sound_file: https://github.com/esphome/home-assistant-voice-pe/raw/dev/sounds/error_cloud_expired.mp3
+
+logger:
+  level: DEBUG
+
+api:
+
+ota:
+  platform: esphome
+  password: !secret esphome_ota_password
+
+wifi:
+  ssid: !secret esphome_wifi_ssid
+  password: !secret esphome_wifi_password
+
+psram:
+  mode: octal
+  speed: 80MHz
+  ignore_not_found: false
+
+network:
+  enable_ipv6: true
+
+packages:
+  esparagus_remote:
+    url: https://github.com/danni-storm/lamePod
+    ref: main
+    files:
+      # Option A: TAS58xx configured with ganged 15-band EQ
+      - esphome/packages/dac-tas58xx.yaml
+      # Option B: TAS58xx configured with individual 15-band EQ per channel
+      # - esphome/packages/dac-tas58xx-biamp.yaml
+      # Option C: TAS58xx configured with bi-amp mode, with filters applied to both channels (HF or LF)
+      # - esphome/packages/dac-tas58xx-presets.yaml
+
+    ### CORE INTERFACE PACKAGES
+      # I2S Input/Output Definition
+      # Defines the I2S interface for mic
+      # Defines the I2S interface for speaker
+      - esphome/packages/i2s-audio-define.yaml
+    
+    ### CORE AUDIO OUTPUT PACKAGES
+      # Sendspin Package
+      # Provides music streaming interface with Music Assistant
+      - esphome/packages/sendspin.yaml
+      # Audio Output Package
+      # Defines the i2s speaker
+      - esphome/packages/speaker.yaml
+      # External DAC (?) Package
+      # Allows an external DAC to be used (?)
+      - esphome/packages/audio-addon-external-dac.yaml
+      # Built in DAC Enable Package
+      # Enables the build in DAC
+      - esphome/packages/addon-dac-enable.yaml
+      # TAS DAC/AMP Setup Package
+      # Setup for the TAS based DAC/AMP
+      - esphome/packages/addon-tas58xx.yaml
+
+    ### PERIPHERAL PACKAGES
+      # LED Light Package
+      # Defines the use of LED's based on system status
+      - esphome/packages/led-status.yaml
+      # Ethernet Package
+      # Defines the SPI interface used by the WS5500
+      # Enables the Ethernet Module
+      - esphome/packages/ethernet.yaml
+      # Mic Package
+      # Enables and defines the microphone
+      - esphome/packages/mic.yaml

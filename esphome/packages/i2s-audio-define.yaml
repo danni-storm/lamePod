@@ -1,0 +1,15 @@
+# Based on work from Sonocotta
+# Based on work from formatBCE
+
+i2s_audio:
+  - id: i2s_output
+    i2s_lrclk_pin: ${i2s_lrclk_pin}
+    i2s_bclk_pin: ${i2s_bclk_pin}
+
+  - id: i2s_input
+    i2s_lrclk_pin:
+      number: ${i2s_lrclk_pin_mic}
+      allow_other_uses: true
+    i2s_bclk_pin:
+      number: ${i2s_bclk_pin_mic}
+      allow_other_uses: true

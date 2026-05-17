@@ -1,0 +1,13 @@
+# base on work by formatBCE
+
+microphone:
+  - platform: i2s_audio
+    id: i2s_mics
+    i2s_din_pin: {$i2s_din_pin_mic}
+    adc_type: external
+    pdm: false
+    sample_rate: 48000
+    bits_per_sample: 32bit
+    i2s_mode: secondary
+    i2s_audio_id: i2s_input
+    channel: stereo

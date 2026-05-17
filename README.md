@@ -1,10 +1,10 @@
-# Lame Pod
+# LamePod
 There remains a lack of open source projects which provide the blueprints for chasis, firmware, and hardware for a DIY smart speaker. Major corperation voice assistants work off the backs of the FOSS communities and profiteer off of the data provided by such devices. I aim to provide an alternative for like minded individuals seeking highly polished DIY smart speakers that respect your privacy and the FOSS projects it is built on.
 
 ***Warning:*** *This project is still in complete infancy. Currently the repo is just for internal use right now as I work on implementing the first set of code. **It is NOT functional** as of now.*
 
 ## Overview
-The Lame Pod project was conceived to imitate the functionality and aesthetics of the Apple HomePod using ESPHome, FOSS code, and open hardware. Lame Pod aspires to be a polished, good looking, highly functional alternative to corperate products which cost a lot of money, yet still profit off of your data at the cost of developers, the planet, and individuals. 
+The LamePod project was conceived to imitate the functionality and aesthetics of the Apple HomePod using ESPHome, FOSS code, and open hardware. LamePod aspires to be a polished, good looking, highly functional alternative to corperate products which cost a lot of money, yet still profit off of your data at the cost of developers, the planet, and individuals. 
 
 ### Initial Proof of Concept Hardware
 Currently the project is designed to operate around Sonocotta's ESP32 hardware projects. The initial proof of concept will incorperate the following hardware and a 3D printed chasis. 
