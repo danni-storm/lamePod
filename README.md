@@ -1,5 +1,5 @@
 # LamePod
-There remains a lack of open source projects which provide the blueprints for chasis, firmware, and hardware for a DIY smart speaker. Major corperation voice assistants work off the backs of the FOSS communities and profiteer off of the data provided by such devices. I aim to provide an alternative for like minded individuals seeking highly polished DIY smart speakers that respect your privacy and the FOSS projects it is built on.
+There remains a lack of open source projects which provide the blueprints for chasis, firmware, and hardware for a DIY smart speaker. Major corperation voice assistants work off the backs of FOSS communities and profiteer off of the data provided by such devices. I aim to provide an alternative for like minded individuals seeking highly polished DIY smart speakers that respect your privacy and the FOSS projects it is built on.
 
 ***Warning:*** *This project is still in complete infancy. Currently the repo is just for internal use right now as I work on implementing the first set of code. **It is NOT functional** as of now.*
 
@@ -18,10 +18,10 @@ Currently the project is designed to operate around Sonocotta's ESP32 hardware p
 |  Speaker   |  4" Full Range |       Dayton Audio RS100-4        |
 | Microphone |     XVF3800    |  Seeed Studio Respeaker XVF3800   |
 |    LED     |   WS2812B 8x8  | BTF-LIGHTING WS2812B RGB 5050SMD  |
-|   Power    |   20V 2A PSU*  |  Amazon EL Listed Wall Brick**    |
+|   Power    |   24V 2A PSU*  |  Amazon EL Listed Wall Brick**    |
 |  5V Down   | Buck Converter |      [DROK Buck Converter](https://www.amazon.com/dp/B01NALDSJ0?ref=ppx_yo2ov_dt_b_fed_asin_title&th=1) |
 
-\* *20V, 2A will provide a little less than 40W for the entire speaker*
+\* *24V, 2A will provide a little less than 48W for the entire device, including speakers*
 
 \** *I wanted something somwehat safer than random power supplies off the internet (so UL or ETL listed for the US) that would provide enough power for the setup without requiring anything unsighly/bulky*
 
